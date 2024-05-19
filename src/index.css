@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif, "Gill Sans", "Gill Sans MT";
+}
+.custom-card {
+  animation: loading linear;
+  animation-timeline: view();
+  animation-range: exit -200px;
+}
+@keyframes loading {
+  to {
+    opacity: 0;
+  }
+}
+.custom-input:active,
+.custom-input:focus,
+.custom-input:focus-visible {
+  background-color: #ffffff;
+}
+select:active,
+select:focus {
+  border: none;
+  outline: none;
+}
