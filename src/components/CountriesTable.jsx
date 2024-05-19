@@ -1,56 +1,39 @@
-import { TailSpin } from "react-loader-spinner";
-
 function CountriesTable({ countries }) {
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center place-items-center place-content-center">
-      {!countries.length ? (
-        <div className="w-full flex items-center justify-center dark:bg-Dark-Elements bg-Light-Elements">
-          <TailSpin
-            visible={true}
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
-        </div>
-      ) : (
-        countries.map((country) => {
-          return (
-            <div
-              key={country.name.common}
-              style={{ boxShadow: " rgba(0, 0, 0, 0.09) 0px 3px 12px" }}
-              className="custom-card w-[260px] h-[350px] bg-Light-Elements text-Dark-Text dark:bg-Dark-Elements dark:text-Light-Text my-5 "
-            >
-              <img
-                src={country.flags.png}
-                alt={country.flags.alt}
-                className="w-full h-[150px]"
-              />
+      {countries.map((country) => {
+        return (
+          <div
+            key={country.name.common}
+            style={{ boxShadow: " rgba(0, 0, 0, 0.09) 0px 3px 12px" }}
+            className="custom-card w-[260px] h-[350px] bg-Light-Elements text-Dark-Text dark:bg-Dark-Elements dark:text-Light-Text my-5 "
+          >
+            <img
+              src={country.flags.png}
+              alt={country.flags.alt}
+              className="w-full h-[150px]"
+            />
 
-              <ul className="p-5">
-                <li className="font-[800] text-2xl my-5">
-                  {country.name.common}
-                </li>
-                <li className="text-base my-1">
-                  <span className="font-[600]">Population: </span>
-                  {country.population}
-                </li>
-                <li className="text-base my-1">
-                  <span className="font-[600]">Capital: </span>
-                  {country.region}
-                </li>
-                <li className="text-base my-1">
-                  <span className="font-[600]">Region: </span>
-                  {country.capital && country.capital[0]}
-                </li>
-              </ul>
-            </div>
-          );
-        })
-      )}
+            <ul className="p-5">
+              <li className="font-[800] text-2xl my-5">
+                {country.name.common}
+              </li>
+              <li className="text-base my-1">
+                <span className="font-[600]">Population: </span>
+                {country.population}
+              </li>
+              <li className="text-base my-1">
+                <span className="font-[600]">Capital: </span>
+                {country.region}
+              </li>
+              <li className="text-base my-1">
+                <span className="font-[600]">Region: </span>
+                {country.capital && country.capital[0]}
+              </li>
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }
