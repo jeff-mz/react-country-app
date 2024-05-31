@@ -1,60 +1,60 @@
 import { useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 import NavHeader from "./NavHeader";
-import CountriesTable from "./CountriesTable";
 import SearchPanel from "./SearchPanel";
 import FilterPanel from "./FilterPanel";
+import CountriesTable from "./CountriesTable";
 
 function Homepage() {
   const [darkMood, setDarkMood] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [countriesData, setCountriesData] = useState([]);
   const [searchVal, setSearchVal] = useState("");
-  const [filteredVal, setFilteredVal] = useState("");
+  const [filterVal, setFilterVal] = useState("");
+  const [showPanel, setShowPanel] = useState(false);
 
-  // show countries at mounting or loading
+  // Fetch countries at mounting or loading
   useEffect(() => {
     const fetchData = async () => {
       let fetchUrl = await fetch("https://restcountries.com/v3.1/all");
       let countriesData = await fetchUrl.json();
+      setCountriesData(countriesData);
       setCountries(countriesData);
     };
     fetchData();
   }, []);
 
-  // show countries based on search
+  // find countries with search value
   useEffect(() => {
-    const fetchSearch = async () => {
-      if (searchVal != "") {
-        let searchedFetch = await fetch(
-          `https://restcountries.com/v3.1/name/${searchVal}`
-        );
-        let searchData = await searchedFetch.json();
-        setCountries(searchData);
-      }
-    };
-    fetchSearch();
+    if (searchVal) {
+      const filteredCountries = countriesData.filter((country) => {
+        return country.name.common
+          .toLowerCase()
+          .includes(searchVal.toLowerCase());
+      });
+      setCountries(filteredCountries);
+      setShowPanel(true);
+    } else {
+      setCountries(countriesData);
+    }
   }, [searchVal]);
 
-  // show countries based on continents
+  // find countries with filter value
   useEffect(() => {
-    const fetchFiltered = async () => {
-      if (filteredVal !== "") {
-        let filteredFetch = await fetch(
-          `https://restcountries.com/v3.1/region/${filteredVal}`
-        );
-        let filteredData = await filteredFetch.json();
-        setFilteredCountries(filteredData);
-      }
-    };
-    fetchFiltered();
-  }, [filteredVal]);
+    if (filterVal) {
+      const filteredRegions = countriesData.filter((country) => {
+        return country.region.toLowerCase().includes(filterVal.toLowerCase());
+      });
+      setCountries(filteredRegions);
+    } else {
+      setCountries(countriesData);
+    }
+  }, [filterVal]);
 
   return (
     <main className="w-full min-h-screen">
       <NavHeader darkMood={darkMood} setDarkMood={setDarkMood} />
-
-      {!countries.length ? (
+      {!countries.length && !showPanel ? (
         <div className="w-full min-h-screen flex items-center justify-center dark:bg-Dark-Elements bg-Light-Elements">
           <TailSpin
             visible={true}
@@ -71,16 +71,9 @@ function Homepage() {
         <section className="w-full min-h-screen bg-Light-Background dark:bg-Dark-Background">
           <div className="container mx-auto py-5 flex flex-col md:flex-row items-start justify-start">
             <SearchPanel searchVal={searchVal} setSearchVal={setSearchVal} />
-            <FilterPanel
-              filteredVal={filteredVal}
-              setFilteredVal={setFilteredVal}
-            />
+            <FilterPanel filterVal={filterVal} setFilterVal={setFilterVal} />
           </div>
-          <CountriesTable
-            countries={
-              filteredCountries.length > 0 ? filteredCountries : countries
-            }
-          />
+          <CountriesTable countries={countries} />
         </section>
       )}
     </main>

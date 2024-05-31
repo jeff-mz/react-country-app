@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function CountriesTable({ countries }) {
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center place-items-center place-content-center">
@@ -16,18 +18,23 @@ function CountriesTable({ countries }) {
 
             <ul className="p-5">
               <li className="font-[800] text-2xl my-5">
-                {country.name.common}
+                <Link
+                  to={`/country/${country.name.common}`}
+              
+                >
+                  {country.name.common}
+                </Link>
               </li>
               <li className="text-base my-1">
                 <span className="font-[600]">Population: </span>
                 {country.population}
               </li>
               <li className="text-base my-1">
-                <span className="font-[600]">Capital: </span>
+                <span className="font-[600]">Region: </span>
                 {country.region}
               </li>
               <li className="text-base my-1">
-                <span className="font-[600]">Region: </span>
+                <span className="font-[600]">Capital: </span>
                 {country.capital && country.capital[0]}
               </li>
             </ul>
