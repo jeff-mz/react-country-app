@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
-import { TailSpin } from "react-loader-spinner";
-import NavHeader from "./NavHeader";
 import SearchPanel from "./SearchPanel";
 import FilterPanel from "./FilterPanel";
 import CountriesTable from "./CountriesTable";
 
 function Homepage() {
-  const [darkMood, setDarkMood] = useState(false);
   const [countries, setCountries] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
   const [searchVal, setSearchVal] = useState("");
@@ -53,23 +50,20 @@ function Homepage() {
 
   return (
     <main className="w-full min-h-screen">
-      <NavHeader darkMood={darkMood} setDarkMood={setDarkMood} />
       {!countries.length && !showPanel ? (
-        <div className="w-full min-h-screen flex items-center justify-center dark:bg-Dark-Elements bg-Light-Elements">
-          <TailSpin
-            visible={true}
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
+        <div className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center dark:bg-Dark-Elements bg-Light-Elements">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="country-card-skeleton">
+              <div className="skeleton-flag"></div>
+              <div className="skeleton-text"></div>
+              <div className="skeleton-text"></div>
+              <div className="skeleton-text"></div>
+            </div>
+          ))}
         </div>
       ) : (
         <section className="w-full min-h-screen bg-Light-Background dark:bg-Dark-Background">
-          <div className="container mx-auto py-5 flex flex-col md:flex-row items-start justify-start">
+          <div className="container mx-au py-5 flex flex-col md:flex-row items-start md:items-center md:justify-between">
             <SearchPanel searchVal={searchVal} setSearchVal={setSearchVal} />
             <FilterPanel filterVal={filterVal} setFilterVal={setFilterVal} />
           </div>

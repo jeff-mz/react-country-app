@@ -8,7 +8,7 @@ function CountriesTable({ countries }) {
           <div
             key={country.name.common}
             style={{ boxShadow: " rgba(0, 0, 0, 0.09) 0px 3px 12px" }}
-            className="custom-card w-[260px] h-[350px] bg-Light-Elements text-Dark-Text dark:bg-Dark-Elements dark:text-Light-Text my-5 "
+            className="custom-card w-[80%] md:w-[70%] h-[350px] bg-Light-Elements text-Dark-Text dark:bg-Dark-Elements dark:text-Light-Text my-5 "
           >
             <img
               src={country.flags.png}
@@ -18,10 +18,7 @@ function CountriesTable({ countries }) {
 
             <ul className="p-5">
               <li className="font-[800] text-2xl my-5">
-                <Link
-                  to={`/country/${country.name.common}`}
-              
-                >
+                <Link to={`/country/${country.name.common}`}>
                   {country.name.common}
                 </Link>
               </li>

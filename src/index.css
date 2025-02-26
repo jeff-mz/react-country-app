@@ -27,3 +27,60 @@ select:focus {
   border: none;
   outline: none;
 }
+
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.country-card,
+.country-card-skeleton {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.country-card img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Skeleton styles */
+.country-card-skeleton .skeleton-flag {
+  width: 100px;
+  height: 60px;
+  background-color: #e0e0e0;
+  margin: 0 auto 10px;
+  border-radius: 4px;
+}
+
+.country-card-skeleton .skeleton-text {
+  width: 80%;
+  height: 16px;
+  background-color: #e0e0e0;
+  margin: 8px auto;
+  border-radius: 4px;
+}
+
+/* Shimmer effect (optional) */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.country-card-skeleton .skeleton-flag,
+.country-card-skeleton .skeleton-text {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
